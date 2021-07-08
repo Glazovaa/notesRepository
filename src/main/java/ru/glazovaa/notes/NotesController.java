@@ -5,8 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -15,8 +13,10 @@ public class NotesController {
     @Autowired
     NotesRepository notesRepository;
 
-    private Notes note;
-    private Customer customer;
+    Notes note;
+    Customer customer;
+    CustomerRepository customerRepository;
+
     @GetMapping("/")
     public String note(Model model){
         model.addAttribute("Notes", notesRepository.findAll());
@@ -38,23 +38,15 @@ public class NotesController {
     public String show(@PathVariable("id") long id, Model model){
         Optional<Notes> noteEntity = notesRepository.findById(id);
         model.addAttribute("NoteEntity",noteEntity.get());
-        Iterable<Notes> notes = notesRepository.findAll();
-        model.addAttribute("notes", notes);
-        return "";
+        model.addAttribute("Redact", new Notes());
+        model.addAttribute("Notes", notesRepository.findAll());
+        return "redact";
+    }
+    @PostMapping("/{id}")
+    public String redactPost(@ModelAttribute("note") Notes note, Model model){
+        model.addAttribute("Notes",note);
+        notesRepository.save(note);
+        return "notes";
     }
 
-    private CustomerRepository customerRepository;
-
-//    @GetMapping("/registration")
-//    public String registration(Model model) {
-//        model.addAttribute("Customer", new Customer());
-//        return "registration";
-//    }
-//
-//    @PostMapping("/registration")
-//    public String addUser(@ModelAttribute("note") Customer customer, Model model) {
-//        model.addAttribute("Customer", customer);
-//        customerRepository.save(customer);
-//        return "redirect:/login";
-//    }
 }
