@@ -22,8 +22,8 @@
                     <a class="nav-link active fs-5" href="#" >Выйти</a>
                 </li>
             </ul>
-            <form class="d-flex" th:method="POST" th:action="@{/search}" th:object="${Search}">
-                <input class="form-control me-4 " type="text" placeholder="Найти заметку" aria-label="Search" th:field="*{searchNote}">
+            <form class="d-flex">
+                <input class="form-control me-4 " type="text" placeholder="Найти заметку" aria-label="Search">
                 <button class="btn btn-light fs-5" type="submit">Поиск</button>
             </form>
         </div>
@@ -42,45 +42,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="text-center">Новая заметка</h1>
+                <h1>Error</h1>
             </div>
             <div class="modal-body">
-                <form action="#" th:action="@{/redactNote}" modelAttribute="note" th:object="${Notes}" method="post">
-                    <div class="row w-100 p-3 mx-auto">
-                        <div class="mb-3">
-                            <label class="form-label">Тема заметки </label>
-                            <input type="text" class="form-control" id="url" name="url"  required th:value="${NoteEntity.head}"/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Текст заметки</label>
-                            <textarea inputmode="text" class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{body}"></textarea>
-                        </div>
-                        <p class="text-center"><input type="submit" value="Создать" class="btn btn-outline-info" /></p>
-                    </div>
-                </form>
+                <p>Нет заметки с такой темой</p>
             </div>
             <div class="modal-footer">
-                <a href="/deleteNote">Delete</a>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <a class="btn btn-secondary" href="/">Close</a>
             </div>
         </div>
     </div>
 </div>
-<!--    <h1 class="text-center">Новая заметка</h1>-->
 
-<!--    <form action="#" th:action="@{/notes}" modelAttribute="note" th:object="${Notes}" method="post">-->
-<!--        <div class="row w-25 p-3 mx-auto">-->
-<!--            <div class="mb-3">-->
-<!--                    <label class="form-label">Тема заметки </label>-->
-<!--                    <input type="text" class="form-control" id="url" name="url"  required th:field="*{head}"/>-->
-<!--            </div>-->
-<!--            <div class="mb-3">-->
-<!--                <label for="exampleFormControlTextarea1" class="form-label">Текст заметки</label>-->
-<!--                <textarea inputmode="text" class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{body}"></textarea>-->
-<!--            </div>-->
-<!--            <p class="text-center"><input type="submit" value="Создать" class="btn btn-outline-info" /> </p>-->
-<!--        </div>-->
-<!--    </form>-->
 <script type="text/javascript">
     $(window).on('load',function(){
         $('#myModal').modal('show');

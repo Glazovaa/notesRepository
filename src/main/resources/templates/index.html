@@ -22,8 +22,8 @@
                         <a class="nav-link active fs-5" href="#" >Выйти</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-4 " type="search" placeholder="Найти заметку" aria-label="Search">
+                <form class="d-flex" th:method="POST" th:action="@{/search}" th:object="${Search}">
+                    <input class="form-control me-4 " type="text" placeholder="Найти заметку" aria-label="Search" th:field="*{searchNote}">
                     <button class="btn btn-light fs-5" type="submit">Поиск</button>
                 </form>
             </div>
