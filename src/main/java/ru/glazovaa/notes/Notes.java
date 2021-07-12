@@ -12,19 +12,15 @@ public class Notes {
 
     private String head;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    Customer customer;
-
+    private String username;
     public Notes() {
     }
 
-    public Notes(String head, String body, Customer customer) {
+    public Notes(String head, String body) {
         this.head = head;
         this.body = body;
-        this.customer = customer;
 
     }
-
     public Long getId() {
         return id;
     }
@@ -49,12 +45,11 @@ public class Notes {
         this.body = body;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getUsername() {
+        return username;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUsername(String username) {
+        this.username = username;
     }
-
 }
