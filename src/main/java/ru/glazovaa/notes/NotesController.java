@@ -9,9 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class NotesController {
@@ -110,27 +108,20 @@ public class NotesController {
 
     @GetMapping("/search/{searchName}")
     public String showSearch(@PathVariable("searchName") String searchName, Model model, Principal principal) {
-        userHello.setNameuser(principal.getName());
         model.addAttribute("Hello", userHello);
-        System.out.println(searchName);
-        if (searchName != ""){
-            Notes noteEntity = notesRepository.findNotesByHead(searchName);
-            if (noteEntity != null){
-                if (noteEntity.getUsername() == principal.getName()){
-                    idNote = noteEntity.getId();
-                    model.addAttribute("Search", new Search());
-                    model.addAttribute("NoteEntity",noteEntity);
-                    model.addAttribute("Notes", notesRepository.findAllByUsername(principal.getName()));
-                    return "/search";
-                }else{
-                    return "/errorSearch";
-                }
-            }else{
-                return "/errorSearch";
+        List<Notes> notes = notesRepository.findAllByHead(searchName);
+        List<Notes> searchNote = new ArrayList<Notes>();
+        for(Notes note : notes ){
+            if (principal.getName().equals(note.getUsername())){
+                searchNote.add(note);
             }
-        }else {
+        }
+        model.addAttribute("Search", new Search());
+        if (searchNote.isEmpty()) {
             return "/errorSearch";
         }
+        model.addAttribute("searchNotes",searchNote);
+        return "/search";
     }
     @GetMapping("/errorSearch")
     public String error(Model model, Principal principal){
@@ -164,22 +155,15 @@ public class NotesController {
         User user = repository.findByUsername(reg.getUsername());
         if (user == null) {
             if ((reg.getUsername().equals("") || reg.getPassword().equals("") || reg.getPasswordConfirm().equals(""))) {
-                model.addAttribute("divError", true);
-                model.addAttribute("error", "Все поля должны быть заполнены");
                 model.addAttribute("reg", new Registration ());
                 return "registration";
             }
             if (!reg.getPassword().equals(reg.getPasswordConfirm())) {
-                model.addAttribute("divError", true);
-                model.addAttribute("error", "Пароли не совпадают");
                 model.addAttribute("reg", new Registration ());
                 return "registration";
             }
-            System.out.println(reg.getUsername()+" "+reg.getPassword());
             repository.save(new User(reg.getUsername(), bCryptPasswordEncoder.encode(reg.getPassword())));
         } else {
-            model.addAttribute("divError", true);
-            model.addAttribute("error", "Пользователь с таким именем уже существует");
             model.addAttribute("reg", new Registration());
             return "registration";
         }
@@ -189,7 +173,7 @@ public class NotesController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) throws ServletException {
         request.logout();
-        return "redirect:http://localhost:8080/login";
+        return "redirect:/login";
     }
 }
 class Search{

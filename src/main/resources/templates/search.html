@@ -39,7 +39,7 @@
     </nav>
     <div class="text-center">
         <div class="row m-5 mx-5 ">
-            <div class="card text-dark bg-warning mb-3 mx-5" style="width: 28rem; left: 5rem;" th:each="note: ${Notes}">
+            <div class="card text-dark bg-warning mb-3 mx-5" style="width: 28rem; left: 5rem;" th:each="note: ${searchNotes}">
                 <a class="nav-item nav-link text-dark" th:href="@{/{id}(id=${note.getId()})}">
                     <div class="card-body mx-5">
                         <h5 class="card-title" id="aa" th:text="${note.head}"></h5>
@@ -49,24 +49,24 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <fieldset disabled>
-                        <input type="text"  class="form-control" th:value="${NoteEntity.head}">
-                    </fieldset>
-                </div>
-                <div class="modal-body">
-                    <textarea inputmode="text" class="form-control" id="exampleFormControlTextarea1" rows="3" th:text="${NoteEntity.body}"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <a href="/redactNote">Redact</a>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--        <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <fieldset disabled>-->
+<!--                        <input type="text"  class="form-control" th:value="${NoteEntity.head}">-->
+<!--                    </fieldset>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <textarea inputmode="text" class="form-control" id="exampleFormControlTextarea1" rows="3" th:text="${NoteEntity.body}"></textarea>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <a href="/redactNote">Redact</a>-->
+<!--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <script type="text/javascript">
         $(window).on('load',function(){
