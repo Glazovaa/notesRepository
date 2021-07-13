@@ -1,0 +1,12 @@
+ru\glazovaa\notes\UserRepository.class
+ru\glazovaa\notes\Starter.class
+ru\glazovaa\notes\Registration.class
+ru\glazovaa\notes\User.class
+ru\glazovaa\notes\UserService.class
+ru\glazovaa\notes\Notes.class
+ru\glazovaa\notes\NotesController.class
+ru\glazovaa\notes\NotesRepository.class
+ru\glazovaa\notes\MvcConfig.class
+ru\glazovaa\notes\Search.class
+ru\glazovaa\notes\Role.class
+ru\glazovaa\notes\WebSecurityConfig.class

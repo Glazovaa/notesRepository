@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Notes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <style>
+        .body{
+            background-color: khaki;
+        }
+    </style>
+</head>
+<body class="body">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <div class="dropdown mx-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" th:text="${Hello.nameuser}">
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="/notes">Добавить заметку</a></li>
+                    <li><a class="dropdown-item" href="/logout">Выйти</a></li>
+                </ul>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="text-center">
+                <form class="d-flex" th:method="POST" th:action="@{/search}" th:object="${Search}">
+                    <input class="text-dark form-control me-4 " type="text" placeholder="Найти заметку" aria-label="Search" th:field="*{searchNote}">
+                    <button class="text-light btn btn-secondary fs-5" type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="text-center">
+        <div class="row m-5 mx-5 ">
+            <div class="card text-dark bg-warning mb-3 mx-5" style="width: 28rem; left: 5rem;" th:each="note: ${Notes}">
+                <a class="nav-item nav-link text-dark" th:href="@{/{id}(id=${note.getId()})}">
+                    <div class="card-body mx-5">
+                        <h5 class="card-title" id="aa" th:text="${note.head}"></h5>
+                        <p class="card-text" id="aaa" th:text="${note.body}"></p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</body>
+</html>
