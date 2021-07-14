@@ -101,7 +101,7 @@ public class NotesController {
         model.addAttribute("Search", search);
         searchName = search.getSearchNote();
         if (search.getSearchNote() == ""){
-            return "/errorSearch";
+            return "redirect:/errorSearch";
         }else{
             return "redirect:/search";
         }
@@ -120,10 +120,10 @@ public class NotesController {
         }
         model.addAttribute("Search", new Search());
         if (searchNote.isEmpty()) {
-            return "/errorSearch";
+            return "redirect:/errorSearch";
         }
         model.addAttribute("searchNotes",searchNote);
-        return "/search";
+        return "search";
     }
     @GetMapping("/errorSearch")
     public String error(Model model, Principal principal){
