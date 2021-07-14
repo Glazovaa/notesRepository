@@ -7,11 +7,10 @@ public class Notes {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-
+    @Column(length = 16383)
     private String body;
 
     private String head;
-
     private String username;
     public Notes() {
     }

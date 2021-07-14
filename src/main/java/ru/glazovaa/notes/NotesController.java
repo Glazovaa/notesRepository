@@ -78,14 +78,14 @@ public class NotesController {
     }
 
     @PostMapping("/redactNote")
-    public String redactPost(@ModelAttribute("note") Notes note, Model model){
+    public String redactPost(@ModelAttribute("NoteEntity") Notes note, Model model, Principal principal){
         Optional<Notes> noteEntity = notesRepository.findById(idNote);
         model.addAttribute("Hello", userHello);
-        model.addAttribute("Notes",note);
-        note.setHead(noteEntity.get().getHead());
-        note.setUsername(noteEntity.get().getUsername());
-        notesRepository.deleteById(idNote);
-        notesRepository.save(note);
+        noteEntity.get().setId(idNote);
+        noteEntity.get().setHead(note.getHead());
+        noteEntity.get().setUsername(principal.getName());
+        noteEntity.get().setBody(note.getBody());
+        notesRepository.save(noteEntity.get());
         return "redirect:/";
     }
 
@@ -155,15 +155,21 @@ public class NotesController {
         User user = repository.findByUsername(reg.getUsername());
         if (user == null) {
             if ((reg.getUsername().equals("") || reg.getPassword().equals("") || reg.getPasswordConfirm().equals(""))) {
+                model.addAttribute("divError", true);
+                model.addAttribute("error", "Одно из обязательных полей пусто. Пожалуйста, заполните его.");
                 model.addAttribute("reg", new Registration ());
                 return "registration";
             }
             if (!reg.getPassword().equals(reg.getPasswordConfirm())) {
+                model.addAttribute("divError", true);
+                model.addAttribute("error", "Пароли не совпадают. Пожалуйста, повторите попытку регистрации.");
                 model.addAttribute("reg", new Registration ());
                 return "registration";
             }
             repository.save(new User(reg.getUsername(), bCryptPasswordEncoder.encode(reg.getPassword())));
         } else {
+            model.addAttribute("divError", true);
+            model.addAttribute("error", "Пользователь с таким именем уже существует. Пожалуйста, повторите попытку авторизации.");
             model.addAttribute("reg", new Registration());
             return "registration";
         }

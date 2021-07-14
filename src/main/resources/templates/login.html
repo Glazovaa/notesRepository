@@ -96,7 +96,12 @@
         <input type="text" placeholder="Username" name="username" class="input input--top" />
         <input type="password" placeholder="Password" name="password" class="input" />
         <input type="submit" value="Log in" class="input input--submit" />
-
+        <div th:if ="${param.error}">
+            <div class="alert alert-warning d-flex align-items-center" role="alert">
+                <svg class="flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                <a action="#">Неправильное имя пользователя или пароль</a>
+            </div>
+        </div>
         <label class="text text--small text--centered">New? <a href="/registration">Sign up</a></label>
     </form>
 </body>

@@ -96,7 +96,12 @@
     <input type="password" placeholder="Password" name="password" th:field="${reg.password}" class="input" />
     <input type="password" placeholder="Confirm password" name="password" th:field="${reg.passwordConfirm}" class="input" />
     <input type="submit" value="Registration" class="input input--submit" />
-
+    <div th:if="${divError}">
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <a action="#" th:text="${error}"></a>
+        </div>
+    </div>
     <label class="text text--small text--centered"><a href="/login">Login</a></label>
 </form>
 </body>
