@@ -18,7 +18,7 @@ public class NotesController {
     NotesRepository notesRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    private String searchName;
     public UserHello userHello = new UserHello();
     long idNote =0;
 
@@ -99,16 +99,18 @@ public class NotesController {
     public String sendSearch(@ModelAttribute("SearchEntity") Search search , Model model){
         model.addAttribute("Hello", userHello);
         model.addAttribute("Search", search);
+        searchName = search.getSearchNote();
         if (search.getSearchNote() == ""){
             return "/errorSearch";
         }else{
-            return "redirect:/search/"+search.getSearchNote();
+            return "redirect:/search";
         }
     }
 
-    @GetMapping("/search/{searchName}")
-    public String showSearch(@PathVariable("searchName") String searchName, Model model, Principal principal) {
+    @GetMapping("/search")
+    public String showSearch(Model model, Principal principal) {
         model.addAttribute("Hello", userHello);
+        System.out.println(searchName);
         List<Notes> notes = notesRepository.findAllByHead(searchName);
         List<Notes> searchNote = new ArrayList<Notes>();
         for(Notes note : notes ){
